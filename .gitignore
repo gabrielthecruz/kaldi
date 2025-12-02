@@ -52,3 +52,9 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+# EF Core
+Kaldi.Api/Migratios
+
+# config files
+Kaldi.Api/appsettings.Development.json
