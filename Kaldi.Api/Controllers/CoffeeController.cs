@@ -28,7 +28,9 @@ public class CoffeeController : ControllerBase
     [HttpGet("{id}")]
     public ActionResult<Coffee> GetCoffeeById(Guid id)
     {
-        var coffee = _context.Coffees.First();
+        var coffee = (from c in _context.Coffees
+                      where c.Id == id
+                      select c)?.Single();
 
         if (coffee is null)
             return NotFound($"Coffee with ID='{id} not found.");
