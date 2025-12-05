@@ -30,15 +30,15 @@ public class CoffeeController : ControllerBase
     {
         var coffee = (from c in _context.Coffees
                       where c.Id == id
-                      select c)?.Single();
+                      select c).FirstOrDefault();
 
         if (coffee is null)
-            return NotFound($"Coffee with ID='{id} not found.");
+            return NotFound($"Coffee with ID='{id}' not found.");
 
         return coffee;
     }
 
-    [HttpGet("GetAll")]
+    [HttpGet()]
     public ActionResult<IEnumerable<Coffee>> GetAll() => _context.Coffees;
 
     [HttpDelete()]
@@ -46,10 +46,10 @@ public class CoffeeController : ControllerBase
     {
         var coffee = (from c in _context.Coffees
                       where c.Id == id
-                      select c)?.First();
+                      select c).FirstOrDefault();
 
         if (coffee is null)
-            return NotFound($"Coffee with ID='{id} not found.");
+            return NotFound($"Coffee with ID='{id}' not found.");
 
         _context.Coffees?.Remove(coffee);
         _context.SaveChanges();
@@ -65,7 +65,7 @@ public class CoffeeController : ControllerBase
 
         var dbCoffee = (from c in _context.Coffees
                         where c.Id == coffee.Id
-                        select c)?.First();
+                        select c).FirstOrDefault();
 
         if (dbCoffee is null)
             return NotFound($"Coffee with ID='{coffee.Id}' not found.");

@@ -38,7 +38,7 @@ public class GrinderController : ControllerBase
         return grinder;
     }
 
-    [HttpGet("GetAll")]
+    [HttpGet()]
     public ActionResult<IEnumerable<Grinder>> GetAll() => _context.Grinders;
 
     [HttpDelete()]

@@ -9,7 +9,6 @@ namespace Kaldi.Api.Controllers;
 public class MethodController : ControllerBase
 {
     private readonly KaldiContext _context;
-    private int MaxId;
 
     public MethodController(KaldiContext context) => _context = context;
 
@@ -30,15 +29,15 @@ public class MethodController : ControllerBase
     {
         var method = (from m in _context.Methods
                       where m.Id == id
-                      select m).Single();
+                      select m).FirstOrDefault();
 
         if (method is null)
-            return NotFound($"Method with ID='{id} not found.");
+            return NotFound($"Method with ID='{id}' not found.");
 
         return method;
     }
 
-    [HttpGet("GetAll")]
+    [HttpGet()]
     public ActionResult<IEnumerable<Method>> GetAll() => _context.Methods;
 
     [HttpDelete()]
@@ -46,10 +45,10 @@ public class MethodController : ControllerBase
     {
         var method = (from m in _context.Methods
                       where m.Id == id
-                      select m)?.First();
+                      select m).FirstOrDefault();
 
         if (method is null)
-            return NotFound($"Method with ID='{id} not found.");
+            return NotFound($"Method with ID='{id}' not found.");
 
         _context.Methods?.Remove(method);
         _context.SaveChanges();
@@ -65,7 +64,7 @@ public class MethodController : ControllerBase
 
         var dbMethod = (from m in _context.Methods
                         where m.Id == method.Id
-                        select m)?.First();
+                        select m).FirstOrDefault();
 
         if (dbMethod is null)
             return NotFound($"Method with ID='{method.Id}' not found.");
