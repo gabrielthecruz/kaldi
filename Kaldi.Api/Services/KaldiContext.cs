@@ -8,6 +8,7 @@ public class KaldiContext : DbContext
     public DbSet<Coffee> Coffees { get; set; }
     public DbSet<Method> Methods { get; set; }
     public DbSet<Grinder> Grinders { get; set; }
+    public DbSet<Recipe> Recipes { get; set; }
 
     public KaldiContext(DbContextOptions<KaldiContext> options) : base(options) { }
 
@@ -16,5 +17,6 @@ public class KaldiContext : DbContext
         modelBuilder.Entity<Coffee>().ToTable("Coffee");
 	modelBuilder.Entity<Method>().ToTable("Method");
 	modelBuilder.Entity<Grinder>().ToTable("Grinder");
+	modelBuilder.Entity<Recipe>().ToTable("Recipe");	
     }
 }
